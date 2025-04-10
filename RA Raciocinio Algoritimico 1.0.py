@@ -1,0 +1,150 @@
+# Importa a biblioteca random para gerar as jogadas aleatorias da maquina
+import random
+
+# Comeco do jogo, boas vindas e escolha do modo de jogo
+print("Bem-vindo ao jogo do jokenpo do balacobaco! Escolha o modo de jogo:")
+
+# Escolha o modo de jogo
+print("1 - Humano vs Humano")
+print("2 - Humano vs Maquina")
+print("3 - Maquina vs Maquina")
+
+# Escolha do modo de jogo
+modo_de_jogo = input("Digite o numero do modo escolhido: ")
+
+# Determinador de rodadas e vitorias para cada partida
+rodada = 1
+vitorias1 = 0
+vitorias2 = 0
+
+# Comeco do jogo, hora que o filho chora e a mae nao ve(nesse caso eu)
+while True:
+    print("\nRodada", rodada)
+    
+# Escolha do jogador entre pedra, papel ou tesoura baseado na escolha do modo de jogo 1(H x H)
+    if modo_de_jogo == "1":
+        print("Jogador 1, escolha entre: pedra, papel ou tesoura")
+        jogada_1 = input("Jogador 1: ")
+
+        print("Jogador 2, escolha: pedra, papel ou tesoura")
+        jogada_2 = input("Jogador 2: ")
+        
+# Escolha do jogador entre pedra, papel ou tesoura baseado na escolha do modo de jogo 2 (H x M)
+    elif modo_de_jogo == "2":
+        print("Jogador, escolha: pedra, papel ou tesoura")
+        jogada_1 = input("Jogador: ")
+        opcao = ("pedra", "papel", "tesoura")
+        jogada_2 = random.choice(opcao)
+        print("Maquina escolheu:", jogada_2)
+        
+# Escolha entre pedra, papel ou tesoura baseado na escolha do modo de jogo 3 (M x M ( lembrar q aqui a "opcao do choice tem que ser diferente da opcao do player"))
+    elif modo_de_jogo == "3":
+        opcao = ("pedra", "papel", "tesoura")
+        jogada_1 = random.choice(opcao)
+        jogada_2 = random.choice(opcao)
+        print("Maquina 1 escolheu:", jogada_1)
+        print("Maquina 2 escolheu:", jogada_2)
+        
+# Caso nao seja uma das opcoes escolhidas o jogo encerra (tentar mudar isso para retonar ao jogo quando tudo ja estiver feito)
+    else:
+        print("Modo invalido. Fechando o jogo.")
+        break
+
+# If pra verificar se o jogador 1 venceu ou empatou ou perdeu
+    if jogada_1 == jogada_2:
+        print("Empate! Ninguem venceu a rodada.")
+        
+    elif (jogada_1 == "pedra" and jogada_2 == "tesoura"):
+        print("Jogador 1 venceu a rodada!")
+        vitorias1 = vitorias1 + 1
+        
+    elif (jogada_1 == "papel" and jogada_2 == "pedra"):
+        print("Jogador 1 venceu a rodada!")
+        vitorias1 = vitorias1 + 1
+        
+    elif (jogada_1 == "tesoura" and jogada_2 == "papel"):
+        print("Jogador 1 venceu a rodada!")
+        vitorias1 = vitorias1 + 1
+        
+# If para verificar se o jogador 2 venceu ou empatou ou perdeu
+    elif jogada_2 == jogada_1:
+        print("Empate! Ninguem venceu a rodada.")
+        
+    elif (jogada_2 == "pedra" and jogada_1 == "tesoura"):
+        print("Jogador 2 venceu a rodada!")
+        vitorias2 = vitorias1 + 1
+        
+    elif (jogada_2 == "papel" and jogada_1 == "pedra"):
+        print("Jogador 2 venceu a rodada!")
+        vitorias2 = vitorias2 + 1
+    
+    elif (jogada_2 == "tesoura" and jogada_1 == "papel"):
+        print("Jogador 2 venceu a rodada!")
+        vitorias2 = vitorias2 + 1
+
+# Contador de rodadas comecando do 0 determinado la em cima
+    rodada = rodada + 1
+    
+# Verificador de numero de rodadas executadas > 3 e finalizar o jogo (parte mais dificil ja foi)
+    if rodada > 3:
+        # Fim do jogo para o modo H x H (Imprimir isso aqui so para a escolha 1)
+        if modo_de_jogo == "1":
+            print("\n--- Fim do jogo ---")
+            print("Vitorias Jogador 1:", vitorias1)
+            print("Vitorias Jogador 2:", vitorias2)
+            
+        # Fim do jogo para o modo H x M (Imprimir isso aqui so para a escolha 2)
+        elif modo_de_jogo == "2":
+            print("\n--- Fim do jogo ---")
+            print("Vitorias Jogador:", vitorias1)
+            print("Vitorias Maquina:", vitorias2)
+
+        # Fim do jogo para o modo M x M (Imprimir isso aqui so para a escolha 3)
+        elif modo_de_jogo == "3":
+            print("\n--- Fim do jogo ---")
+            print("Vitorias Maquina 1:", vitorias1)
+            print("Vitorias Maquina 2:", vitorias2)
+
+        # Verifica quem venceu do modo de vista do jogador 1 e pergunta se quer revanche, independente se foi contra outro player ou maquina
+        if vitorias1 > vitorias2:
+            print("Jogador 1 e o vencedor. Quer revanche?")
+            print("Sim ou Nao?")
+            resposta = input("Digite sua resposta: ")
+            if resposta == "sim":
+                rodada = 1
+                vitorias1 = 0
+                vitorias2 = 0
+                continue
+            else:
+                break
+        
+        # Verifica quem venceu do modo de vista do jogador 2 e pergunta se quer revanche, independente se foi contra outro player ou maquina
+        elif vitorias2 > vitorias1:
+            print("Jogador 2 e o vencedor. Quer revanche?")
+            print("Sim ou Nao?")
+            resposta = input("Digite sua resposta: ")
+            if resposta == "sim":
+                rodada = 1
+                vitorias1 = 0
+                vitorias2 = 0
+                continue
+            else:
+                break
+        
+        # Verifica se o jogo terminou empatado e pergunta se quer revanche, independente se foi contra o player ou maquina
+        else:
+            print("O jogo terminou empatado. Quer revanche?")
+            print("Sim ou Nao?")
+            resposta = input("Digite sua resposta: ")
+            if resposta == "sim":
+                rodada = 1
+                vitorias1 = 0
+                vitorias2 = 0
+                continue
+            else:
+                 break
+             
+# Caso tenha sido escolhido encerrado o jogo, imprimir agradecimentos por jogar e os criadores do jogo
+# (FINALMENTE TERMINEI ESSA PORRA E EU N FACO A MINIMA IDEIA DE COMO EU FIZ AKAKAKAAAAK)  
+print("Obrigado por jogar nosso Jokenpo! Volte sempre que quiser")
+print("Criadores: Emidio, Julio & William")
